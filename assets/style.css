@@ -380,3 +380,32 @@ input:not(:placeholder-shown):valid {
     from { transform: translateX(150%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
+
+
+/* ==========================================================================
+   Acessibilidade (Navegação por Teclado) - WCAG 2.1
+   ========================================================================== */
+
+/* Remove o contorno padrão do navegador para ter controlo total */
+a:focus,
+button:focus,
+.menu-icon:focus {
+    outline: none;
+}
+
+/* O :focus-visible aplica o contorno APENAS quando a navegação é feita por teclado (tecla Tab), 
+   mantendo o design limpo para quem clica com o rato */
+a:focus-visible,
+button:focus-visible,
+.menu-icon:focus-visible {
+    outline: 3px solid #0056b3; /* Cor primária de alto contraste */
+    outline-offset: 4px;
+    border-radius: 4px;
+    transition: outline-offset 0.2s ease;
+}
+
+/* Exceção: Inputs de formulário devem mostrar o foco mesmo ao clicar */
+input:focus {
+    outline: 2px solid #0056b3;
+    border-color: #0056b3;
+}
