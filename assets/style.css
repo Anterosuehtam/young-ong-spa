@@ -1,0 +1,382 @@
+/* =========================================
+   1. DESIGN SYSTEM (Variáveis Globais)
+========================================= */
+:root {
+    /* Cores */
+    --color-primary: #0056b3;       
+    --color-primary-light: #3380cc; 
+    --color-secondary: #ff8c00;     
+    --color-secondary-light: #ffb84d; 
+    --color-neutral-100: #ffffff;   
+    --color-neutral-200: #f4f4f9;   
+    --color-neutral-800: #333333;   
+    --color-neutral-900: #1a1a1a;   
+
+    /* Tipografia (Escala em REM) */
+    --font-size-xs: 0.75rem;   
+    --font-size-sm: 0.875rem;  
+    --font-size-base: 1rem;    
+    --font-size-lg: 1.5rem;    
+    --font-size-xl: 2.5rem;    
+
+    /* Espaçamentos Modulares (Base 8px) */
+    --spacing-xs: 0.5rem;   
+    --spacing-sm: 1rem;     
+    --spacing-md: 1.5rem;   
+    --spacing-lg: 2rem;     
+    --spacing-xl: 3rem;     
+}
+
+/* =========================================
+   2. RESET BÁSICO E TIPOGRAFIA
+========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-neutral-200);
+    color: var(--color-neutral-800);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: var(--color-neutral-900);
+    margin-bottom: var(--spacing-sm);
+}
+
+h1 { font-size: var(--font-size-xl); }
+h2 { font-size: var(--font-size-lg); color: var(--color-primary); }
+h3 { font-size: var(--font-size-base); }
+
+p { margin-bottom: var(--spacing-sm); }
+a { color: var(--color-primary); text-decoration: none; font-weight: bold; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* =========================================
+   3. CABEÇALHO E MENU MOBILE 
+========================================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que o menu caia para a próxima linha no celular */
+    background-color: var(--color-neutral-100);
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    color: var(--color-primary);
+}
+
+/* Esconde o checkbox usado para a lógica */
+#menu-toggle {
+    display: none;
+}
+
+/* Estilo do ícone hambúrguer (Padrão no Mobile) */
+.menu-icon {
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--color-primary);
+    display: block; 
+}
+
+/* Esconde a navegação por padrão no celular */
+nav {
+    display: none;
+    width: 100%;
+}
+
+/* A mágica: quando o checkbox estiver marcado, mostre a navegação! */
+#menu-toggle:checked ~ nav {
+    display: block;
+}
+
+/* Lista principal em formato de coluna no celular */
+nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+}
+
+/* Configurações do Submenu no mobile */
+.submenu {
+    display: none;
+    background-color: var(--color-neutral-200);
+    padding: var(--spacing-sm);
+    border-radius: 4px;
+    margin-top: var(--spacing-xs);
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Mostra o submenu ao passar o mouse */
+.dropdown:hover .submenu {
+    display: flex;
+}
+
+/* =========================================
+   4. CSS GRID (Layout macro e Responsividade)
+========================================= */
+/* Container principal (Malha de 12 colunas) */
+main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    max-width: 1400px;
+    margin: 0 auto; /* Centraliza em telas grandes */
+}
+
+/* Comportamento padrão (Mobile First) - Ocupa 12 colunas */
+section {
+    grid-column: span 12;
+    background-color: var(--color-neutral-100);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Sub-grid para as Frentes de Atuação (Cartões) */
+#projetos {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-md);
+}
+
+#projetos h2 { grid-column: span 12; }
+
+/* Cartão individual (Flexbox interno + Grid Externo) */
+article {
+    grid-column: span 12;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-neutral-200);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+}
+
+/* =========================================
+   5. BREAKPOINTS (Media Queries)
+========================================= */
+
+/* 1. Smartphones modo paisagem */
+@media (min-width: 576px) {
+    fieldset { padding: var(--spacing-lg); }
+}
+
+/* 2. Tablets */
+@media (min-width: 768px) {
+    /* Cartões de projetos passam a ocupar metade do espaço (6 colunas) */
+    article { grid-column: span 6; }
+}
+
+/* 3. Laptops */
+@media (min-width: 992px) {
+    
+    .menu-icon {
+        display: none; /* Esconde o ícone hambúrguer */
+    }
+    
+    nav {
+        display: block; /* Garante que o menu apareça sempre */
+        width: auto;
+    }
+    
+    nav ul {
+        flex-direction: row; /* Coloca os itens lado a lado */
+        padding-top: 0;
+        gap: var(--spacing-md);
+    }
+
+    /* Comportamento do Submenu flutuante no Desktop */
+    .dropdown {
+        position: relative;
+    }
+
+    .submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 150px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-top: 0;
+        z-index: 999;
+    }
+    /* No index, seção "Quem Somos" e "Contato" ficam lado a lado */
+    main section { grid-column: span 6; }
+    
+    /* Na página de projetos, a seção de Frentes ocupa 12, mas as de baixo dividem */
+    #projetos { grid-column: span 12; }
+    #voluntariado, #doacao { grid-column: span 6; }
+}
+
+/* 4. Desktops */
+@media (min-width: 1200px) {
+    /* Cartões de projetos ficam em 3 colunas (4 espaços cada) */
+    article { grid-column: span 4; }
+}
+
+/* 5. Monitores Panorâmicos (Ultrawide) */
+@media (min-width: 1400px) {
+    header, footer {
+        max-width: 1400px;
+        margin: 0 auto;
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+/* Estilo base para os campos de digitação */
+input {
+    width: 100%; /* Faz o campo ocupar todo o espaço do fieldset */
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 4px; /* Dá um respiro entre o label e o input */
+}
+
+/* Estilo base lindão para o botão */
+button {
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-secondary); /* Aquele Laranja chamativo */
+    color: var(--color-neutral-100);
+    font-size: var(--font-size-base);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: var(--spacing-md);
+}
+
+/* =========================================
+   6. INTERATIVIDADES E VALIDAÇÕES (UX/UI)
+========================================= */
+/* Transições suaves para botões e inputs */
+button, input {
+    transition: all 0.3s ease;
+}
+
+/* ---------------- ESTADOS DOS BOTÕES ---------------- */
+button:hover {
+    background-color: var(--color-secondary-light);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.4);
+}
+
+button:active {
+    transform: scale(0.98);
+    box-shadow: none;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ---------------- VALIDAÇÃO DO FORMULÁRIO ---------------- */
+/* Destaque ao clicar no campo */
+input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+}
+   
+/* Erro: Campo preenchido incorretamente */
+input[type="text"]:not(:placeholder-shown):invalid,
+input[type="email"]:not(:placeholder-shown):invalid,
+input[type="tel"]:not(:placeholder-shown):invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+}
+
+/* Sucesso: Campo preenchido corretamente */
+input:not(:placeholder-shown):valid {
+    border-color: #28a745; /* Verde */
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+
+/* =========================================
+   7. COMPONENTES DE FEEDBACK (Alertas, Badges e Toasts)
+========================================= */
+
+/* --- Etiquetas (Badges) --- */
+.badge {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+    border-radius: 20px; /* Bordas bem arredondadas, formato de pílula */
+    color: #ffffff;
+    margin-right: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.badge-primary { background-color: var(--color-primary); }
+.badge-success { background-color: #28a745; }
+.badge-warning { background-color: var(--color-secondary); }
+
+/* --- Caixas de Alerta (Alerts) --- */
+.alert {
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    border-radius: 6px;
+    border-left: 6px solid transparent; /* Faixa lateral de destaque */
+    font-size: var(--font-size-sm);
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left-color: #28a745;
+}
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left-color: #dc3545;
+}
+
+/* --- Toast (Notificação Flutuante) --- */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--color-neutral-900);
+    color: var(--color-neutral-100);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    z-index: 1000;
+    /* Animação para ele "deslizar" para dentro da tela */
+    animation: slideInToast 0.5s ease-out forwards;
+}
+
+@keyframes slideInToast {
+    from { transform: translateX(150%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
