@@ -10,10 +10,10 @@
     <header>
         <h1>Young ONG</h1>
         
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <input type="checkbox" id="menu-toggle" aria-hidden="true">
+        <label for="menu-toggle" class="menu-icon" role="button" aria-label="Abrir menu de navegação" tabindex="0">&#9776;</label>
 
-        <nav>
+        <nav aria-label="Menu Principal">
             <ul>
                 <li><a href="#inicio">Início</a></li>
                 
@@ -31,7 +31,7 @@
         </nav>
     </header>
 
-    <main id="conteudo-principal"></main>
+    <main id="conteudo-principal" role="main"></main>
 
     <footer>
         <p>&copy; 2026 Young ONG. Todos os direitos reservados.</p>
