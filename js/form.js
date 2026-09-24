@@ -17,9 +17,16 @@ export const configurarFormulario = () => {
             
             if (!regexCpf.test(valorCpf)) {
                 inputCpf.style.borderColor = 'red';
-                inputCpf.insertAdjacentHTML('afterend', '<span id="msg-erro-cpf" style="color: red; font-size: 12px; display: block; margin-top: 4px;">Formato inválido. Use 000.000.000-00</span>');
+                
+                inputCpf.setAttribute('aria-invalid', 'true');
+                inputCpf.setAttribute('aria-describedby', 'msg-erro-cpf');
+                
+                inputCpf.insertAdjacentHTML('afterend', '<span id="msg-erro-cpf" role="alert" style="color: red; font-size: 12px; display: block; margin-top: 4px;">Formato inválido. Use 000.000.000-00</span>');
             } else {
                 inputCpf.style.borderColor = 'green';
+                
+                inputCpf.removeAttribute('aria-invalid');
+                inputCpf.removeAttribute('aria-describedby');
                 
                 const novoVoluntario = { nome: inputNome, email: inputEmail, cpf: valorCpf };
                 const cadastrosAntigos = localStorage.getItem('voluntariosONG');
