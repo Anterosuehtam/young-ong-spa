@@ -416,6 +416,13 @@ input:not(:placeholder-shown):valid {
         color: var(--dark-text);
         border: 1px solid #444;
     }
+
+    /* Escurece a caixa do formulário para destacar o texto claro */
+    form, .form-container { 
+        background-color: #1e1e1e; /* Cinza muito escuro */
+        color: #f1f1f1;            /* Texto claro e legível */
+        border: 1px solid #333;    /* Borda subtil para destacar do fundo da página */
+    }
 } 
 
 /* ==========================================================================
